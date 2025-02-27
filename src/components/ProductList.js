@@ -1,25 +1,22 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Image, Button, StyleSheet } from 'react-native';
 
-const ProductList = ({ product, addToCart }) => {
-  return (
-    <View style={styles.productCard}>
-      <Text>{product.name} - ${product.price}</Text>
-      <Button title="Add to Cart" onPress={() => addToCart(product)} color="#007BFF" />
-    </View>
-  );
-};
+const ProductList = ({ products, addToCart }) => (
+  <>
+    {products.map((item) => (
+      <View key={item.id} style={styles.product}>
+        <Image style={styles.image} source={{ uri: 'https://via.placeholder.com/100' }} />
+        <Text>{item.name}</Text>
+        <Text>${item.price}</Text>
+        <Button title="Add to Cart" onPress={() => addToCart(item)} />
+      </View>
+    ))}
+  </>
+);
 
 const styles = StyleSheet.create({
-  productCard: {
-    padding: 10,
-    backgroundColor: '#f0f0f0',
-    marginBottom: 10,
-    borderRadius: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
+  product: { marginBottom: 20, alignItems: 'center' },
+  image: { width: 100, height: 100, backgroundColor: '#ddd' },
 });
 
 export default ProductList;

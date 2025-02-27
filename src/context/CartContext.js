@@ -9,8 +9,8 @@ export const CartProvider = ({ children }) => {
     setCart([...cart, product]);
   };
 
-  const removeFromCart = (index) => {
-    setCart(cart.filter((_, i) => i !== index));
+  const removeFromCart = (productId) => {
+    setCart(cart.filter(item => item.id !== productId));
   };
 
   return (
