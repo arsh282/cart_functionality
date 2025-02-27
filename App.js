@@ -1,39 +1,39 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import { CartProvider } from "./src/context/CartContext";
-import HomeScreen from "./src/screens/HomeScreen";
-import CheckoutScreen from "./src/screens/CheckoutScreen";
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { CartProvider } from './src/context/CartContext';
+import HomeScreen from './src/screens/HomeScreen';
+import CheckoutScreen from './src/screens/CheckoutScreen';
+import { Text, TouchableOpacity } from 'react-native'; // Import Text and TouchableOpacity
 
-const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
-const HomeStack = ({ navigation }) => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          headerRight: () => (
-            <TouchableOpacity onPress={() => navigation.navigate("Checkout", { userName: "John Doe" })}>
-              <Text style={{ marginRight: 15, fontSize: 16 }}>👤</Text>
-            </TouchableOpacity>
-          ),
-        }}
-      />
-    </Stack.Navigator>
-  );
-};
 
 export default function App() {
   return (
     <CartProvider>
       <NavigationContainer>
         <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeStack} />
-          <Tab.Screen name="Checkout" component={CheckoutScreen} />
+          <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              tabBarLabel: ({ focused }) => (
+                <Text style={{ color: focused ? 'blue' : 'black' }}>Home</Text> // Example of using Text
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Checkout"
+            component={CheckoutScreen}
+            options={{
+              tabBarButton: (props) => (
+                <TouchableOpacity {...props} style={{ backgroundColor: 'lightblue' }}>
+                  <Text style={{ padding: 10 }}>Go to Checkout</Text>
+                </TouchableOpacity>
+              ),
+            }}
+          />
         </Tab.Navigator>
       </NavigationContainer>
     </CartProvider>
