@@ -1,6 +1,6 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState } from "react";
 
-const CartContext = createContext();
+export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
+    setCart(cart.filter((item, index) => index !== id));
   };
 
   return (
@@ -19,5 +19,3 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
-
-export const useCart = () => useContext(CartContext);

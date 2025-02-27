@@ -1,34 +1,29 @@
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from './src/screens/HomeScreen';
-import CheckoutScreen from './src/screens/CheckoutScreen';
-import { CartProvider, useCart } from './src/context/CartContext';
-import { View, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { CartProvider } from "./src/context/CartContext";
+import HomeScreen from "./src/screens/HomeScreen";
+import CheckoutScreen from "./src/screens/CheckoutScreen";
 
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const CartIcon = () => {
-  const { cart } = useCart();
+const HomeStack = ({ navigation }) => {
   return (
-    <View>
-      <Ionicons name="cart" size={24} />
-      {cart.length > 0 && <Text style={{ color: 'red' }}>{cart.length}</Text>}
-    </View>
-  );
-};
-
-const AppNavigator = () => {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen
-        name="Checkout"
-        component={CheckoutScreen}
-        options={{ tabBarIcon: () => <CartIcon /> }}
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate("Checkout", { userName: "John Doe" })}>
+              <Text style={{ marginRight: 15, fontSize: 16 }}>👤</Text>
+            </TouchableOpacity>
+          ),
+        }}
       />
-    </Tab.Navigator>
+    </Stack.Navigator>
   );
 };
 
@@ -36,8 +31,11 @@ export default function App() {
   return (
     <CartProvider>
       <NavigationContainer>
-        <AppNavigator />
+        <Tab.Navigator>
+          <Tab.Screen name="Home" component={HomeStack} />
+          <Tab.Screen name="Checkout" component={CheckoutScreen} />
+        </Tab.Navigator>
       </NavigationContainer>
     </CartProvider>
   );
-};
+}

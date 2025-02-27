@@ -1,29 +1,14 @@
+// components/CartItem.js
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button } from 'react-native';
 
-const CartItem = ({ item, onRemove }) => {
+const CartItem = ({ item, removeFromCart }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.name}>{item.name}</Text>
-      <Text>${item.price}</Text>
-      <Button title="❌ Remove" onPress={() => onRemove(item.id)} color="red" />
+    <View style={{ padding: 10, borderWidth: 1, marginBottom: 10 }}>
+      <Text>{item.name} - ${item.price}</Text>
+      <Button title="Remove" onPress={() => removeFromCart(item.id)} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 15,
-    margin: 10,
-    backgroundColor: '#ffecec',
-    borderRadius: 5,
-  },
-  name: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});
 
 export default CartItem;
