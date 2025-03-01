@@ -1,17 +1,27 @@
-import React, { useContext } from "react";
-import { View, Text, Button } from "react-native";
-import { CartContext } from "../context/CartContext";
+import React from "react";
+import { View, Text, Button, Image, StyleSheet } from "react-native";
 
-const ProductList = ({ product }) => {
-  const { addToCart } = useContext(CartContext);
-
+const ProductList = ({ product, onAddToCart }) => {
   return (
-    <View style={{ padding: 10, alignItems: "center", borderBottomWidth: 1 }}>
-      <Text style={{ fontSize: 18 }}>{product.name}</Text>
-      <Text style={{ color: "gray" }}>${product.price}</Text>
-      <Button title="Add to Cart" onPress={() => addToCart(product)} />
+    <View style={styles.product}>
+      <Image source={{ uri: product.image }} style={styles.image} />
+      <Text>{product.name}</Text>
+      <Text>${product.price}</Text>
+      <Button title="Add to Cart" onPress={() => onAddToCart(product)} />
     </View>
   );
 };
 
+const styles = StyleSheet.create({
+  product: {
+    padding: 10,
+    alignItems: "center",
+  },
+  image: {
+    width: 100,
+    height: 100,
+  },
+});
+
 export default ProductList;
+

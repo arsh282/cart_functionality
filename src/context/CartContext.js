@@ -5,12 +5,12 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
 
-    // Add item to cart as a separate entity
+    // Add item to cart with a unique ID
     const addToCart = (product) => {
         setCart([...cart, { ...product, cartId: Date.now().toString() }]); 
     };
 
-    // Remove item from cart using cartId
+    // Remove item from cart using cartId instead of product id
     const removeFromCart = (cartId) => {
         setCart(cart.filter(item => item.cartId !== cartId));
     };
