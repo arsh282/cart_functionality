@@ -7,7 +7,6 @@ import HomeScreen from "./src/screens/HomeScreen";
 import CheckoutScreen from "./src/screens/CheckoutScreen";
 import { CartProvider } from "./src/context/CartContext";
 
-
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
