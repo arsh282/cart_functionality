@@ -6,12 +6,14 @@ import { Ionicons } from '@expo/vector-icons';
 const CheckoutScreen = ({ navigation }) => {
     const { cart, removeFromCart } = useContext(CartContext);
 
-    // Set up navigation header inside useEffect (NOT useLayoutEffect)
     useEffect(() => {
         navigation.setOptions({
             title: 'Checkout',
             headerLeft: () => (
-                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                <TouchableOpacity 
+                    onPress={() => navigation.canGoBack() ? navigation.goBack() : null} 
+                    style={styles.backButton}
+                >
                     <Ionicons name="arrow-back" size={24} color="black" />
                 </TouchableOpacity>
             ),
@@ -23,19 +25,18 @@ const CheckoutScreen = ({ navigation }) => {
             {cart.length === 0 ? (
                 <Text style={styles.emptyText}>Your cart is empty</Text>
             ) : (
-        <FlatList
-            data={cart}
-            keyExtractor={(item) => item.cartId} // Use cartId instead of id
-            renderItem={({ item }) => (
-                <View style={styles.cartItem}>
-                    <Text style={styles.itemText}>{item.name} - ${item.price}</Text>
-                    <TouchableOpacity onPress={() => removeFromCart(item.cartId)} style={styles.deleteButton}>
-                        <Ionicons name="trash" size={24} color="white" />
-                    </TouchableOpacity>
-                </View>
-            )}
-        />
-
+                <FlatList
+                    data={cart}
+                    keyExtractor={(item) => item.cartId}
+                    renderItem={({ item }) => (
+                        <View style={styles.cartItem}>
+                            <Text style={styles.itemText}>{item.name} - ${item.price}</Text>
+                            <TouchableOpacity onPress={() => removeFromCart(item.cartId)} style={styles.deleteButton}>
+                                <Ionicons name="trash" size={24} color="white" />
+                            </TouchableOpacity>
+                        </View>
+                    )}
+                />
             )}
         </View>
     );
