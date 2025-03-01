@@ -4,23 +4,19 @@ import { CartContext } from '../context/CartContext';
 
 const products = [
   { id: 1, name: 'Apple', price: 34, image: require('../../assets/apple.jpeg') },
-  { id: 12, name: 'Banana', price: 23, image: require('../../assets/banana.jpg') },
-  { id: 3, name: 'Banana', price: 23, image: require('../../assets/banana.jpg') },
-  { id: 4, name: 'Banana', price: 23, image: require('../../assets/banana.jpg') },
-
+  { id: 2, name: 'Banana', price: 23, image: require('../../assets/banana.jpg') },
 ];
 
 const HomeScreen = () => {
-  const { cart, addToCart } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Grocery Shop</Text>
 
-      {/* Product List */}
       <FlatList
         data={products}
-        keyExtractor={(item, index) => `${item.id}-${index}`} // Ensure unique keys
+        keyExtractor={(item) => item.id.toString()}
         numColumns={2}
         renderItem={({ item }) => (
           <View style={styles.card}>
@@ -33,11 +29,6 @@ const HomeScreen = () => {
           </View>
         )}
       />
-
-      {/* Cart Count Below Products */}
-      <View style={styles.cartCountContainer}>
-        <Text style={styles.cartText}>🛒 Items in Cart: {cart.length}</Text>
-      </View>
     </View>
   );
 };
@@ -88,17 +79,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#FFF',
-    fontWeight: 'bold',
-  },
-  cartCountContainer: {
-    alignItems: 'center',
-    padding: 15,
-    backgroundColor: '#FFF',
-    borderRadius: 10,
-    marginTop: 15,
-  },
-  cartText: {
-    fontSize: 18,
     fontWeight: 'bold',
   },
 });
