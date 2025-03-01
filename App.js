@@ -29,17 +29,25 @@ const TabNavigator = () => {
   const { cart } = useContext(CartContext);
   return (
     <Tab.Navigator>
-      <Tab.Screen
-        name="Shop"
-        component={HomeStack}
-        options={{
-          tabBarLabel: ({ color }) => (
-            <Text style={{ color, fontSize: 14 }}>
-              Shop ({cart.length})
-            </Text>
-          ),
-        }}
-      />
+<Tab.Screen
+  name="Shop"
+  component={HomeStack}
+  options={{
+    tabBarLabel: ({ color }) => (
+      <View style={{ 
+        backgroundColor: '#007BFF', 
+        paddingVertical: 5, 
+        paddingHorizontal: 10, 
+        borderRadius: 15, 
+        alignItems: 'center' 
+      }}>
+        <Text style={{ color: 'white', fontSize: 14, fontWeight: 'bold' }}>
+          {cart.length}
+        </Text>
+      </View>
+    ),
+  }}
+/>
       <Tab.Screen name="Checkout" component={CheckoutScreen} />
     </Tab.Navigator>
   );
